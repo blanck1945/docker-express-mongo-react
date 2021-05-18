@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var MongoConnection = require("../src/db/MongoConnection")
+
+const port = process.env.PORT || 3000
+
+app.listen(port, async() => {
+    try {
+        await MongoConnection.connectDB()
+        console.log("Server running on Port " + port )        
+    }
+    catch(err){
+        console.error(err)
+    }
+})
+

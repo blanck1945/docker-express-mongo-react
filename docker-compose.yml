@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  js:
+    container_name: api-server
+    image: api-server
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    links: 
+      - mongodb
+    volumes: 
+      - .:/usr/src/app
+  mongodb:
+    container_name: mongo_db
+    image: mongo:latest
+    logging: 
+      driver: none
+    ports: 
+      - 27017:27017
+    volumes: 
+      - data:/data/db
+
+volumes: 
+  data:
