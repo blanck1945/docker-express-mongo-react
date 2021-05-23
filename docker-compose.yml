@@ -1,26 +1,25 @@
 version: '3.4'
 
 services:
-  js:
-    container_name: api-server
-    image: api-server
+  postgres:
+    image: postgres:11-alpine
+    restart: always
+    ports:
+      - 5432:5432
     environment:
-      NODE_ENV: production
+      POSTGRES_DB: 'kanas_dev'
+      POSTGRES_HOST_AUTH_METHOD: trust
+  web:
+    build: .
+    depends_on:
+      - postgres
     ports:
       - 3000:3000
-    links: 
-      - mongodb
-    volumes: 
+      - 5000:5000
+      - 9229:9229
+    volumes:
       - .:/usr/src/app
-  mongodb:
-    container_name: mongo_db
-    image: mongo:latest
-    logging: 
-      driver: none
-    ports: 
-      - 27017:27017
-    volumes: 
-      - data:/data/db
-
-volumes: 
-  data:
+      - /usr/src/app/node_modules
+    command: yarn run app
+    environment:
+      DATABASE_URL: postgres://postgres@postgres/kanas_dev

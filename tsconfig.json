@@ -1,9 +1,29 @@
 {
-    "extends": "@tsconfig/node14/tsconfig.json",
-    "compilerOptions": {
-        "lib": ["ESNext"],
-        "outDir": "dist"
-    },
-    "include": ["src"],
-    "exclude": ["**/test.ts"]
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "ts-node": {
+    "module": "CommonJS"
+  },
+  "compilerOptions": {
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "outDir": "dist",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "target": "ESNext",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "server"
+  ],
+  "exclude": [
+    "**/test.ts"
+  ]
 }
